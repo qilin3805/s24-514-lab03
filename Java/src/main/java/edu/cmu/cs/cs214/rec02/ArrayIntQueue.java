@@ -97,11 +97,21 @@ public class ArrayIntQueue implements IntQueue {
             int oldCapacity = elementData.length;
             int newCapacity = 2 * oldCapacity + 1;
             int[] newData = new int[newCapacity];
-            for (int i = head; i < oldCapacity; i++) {
-                newData[i - head] = elementData[i];
+            // for (int i = head; i < oldCapacity; i++) {
+            //     newData[i - head] = elementData[i];
+            // }
+            // Copy elements from head to the end of the array
+            for (int i = head, j = 0; i < size; i++, j++) {
+                newData[j] = elementData[i];
             }
-            for (int i = 0; i < head; i++) {
-                newData[head - i] = elementData[i];
+            // for (int i = 0; i < head; i++) {
+            //     newData[head - i] = elementData[i];
+            // }
+            // If head is not at the beginning, copy elements from the start of the array to head
+            if (head != 0) {
+                for(int i= 0, j = size - head; i < head; i++, j++) {
+                    newData[j] = elementData[i];
+                }
             }
             elementData = newData;
             head = 0;
